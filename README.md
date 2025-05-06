@@ -1,4 +1,4 @@
-# DLLInjector-Cpp
+# simple-DLLInjector
 
 A lightweight and educational DLL injector written in C++ (x64), designed for Windows-based systems. This project demonstrates a basic but fully functional approach to DLL injection using `OpenProcess`, `VirtualAllocEx`, `WriteProcessMemory`, and `CreateRemoteThread`.
 
