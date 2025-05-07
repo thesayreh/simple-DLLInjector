@@ -5,7 +5,7 @@
 // Entry point
 int main() {
     // Enable Russian locale for input/output
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "RU");
 
     DWORD pid;
     std::cout << "Enter process PID: ";
