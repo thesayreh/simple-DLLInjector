@@ -1,17 +1,26 @@
 #include <Windows.h>
 #include <iostream>
+#include <limits>
 
 // Entry point
 int main() {
     // Enable Russian locale for input/output
-    setlocale(LC_ALL, "RU");
+    setlocale(LC_ALL, "Russian");
 
     DWORD pid;
     std::cout << "Enter process PID: ";
-    std::cin >> pid;
+    if (!(std::cin >> pid)) {
+        std::cerr << "Invalid PID input" << std::endl;
+        return 1;
+    }
 
     // Open handle to target process
-    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+    HANDLE hProcess = OpenProcess(
+        PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ,
+        FALSE,
+        pid
+    );
+
     if (!hProcess) {
         std::cerr << "Failed to open process. Error code: " << GetLastError() << std::endl;
         return 1;
@@ -49,7 +58,7 @@ int main() {
     // Create remote thread in the target process to load the DLL
     HANDLE hThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE)loadLibAddr, allocMem, 0, nullptr);
     if (!hThread) {
-        std::cerr << "Failed to create remote thread." << std::endl;
+        std::cerr << "Failed to create remote thread. Error code: " << GetLastError() << std::endl;
         VirtualFreeEx(hProcess, allocMem, 0, MEM_RELEASE);
         CloseHandle(hProcess);
         return 1;
