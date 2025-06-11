@@ -8,9 +8,6 @@ A lightweight and educational DLL injector written in C++ (x64), designed for Wi
 - Writes a DLL path to the allocated memory
 - Loads the DLL using `LoadLibraryA` via a remote thread
 
-📌 **Why it matters**:
-This project reflects early experience in low-level Windows internals and reverse engineering. Written at age 15 as part of a learning path towards security and system-level programming.
-
 ## ⚠️ Disclaimer
 
 This project is strictly for educational purposes. Use responsibly. I do not condone cheating in games or malicious use of code.
